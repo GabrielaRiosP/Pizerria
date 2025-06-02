@@ -1,0 +1,37 @@
+*{
+  height: fit-content;
+}
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .card {
+    flex: 1 1 calc(33.33% - 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin: 10px;
+  }
+  
+  .card img {
+    width: 350px;
+    height: auto;
+    max-width: fit-content;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+  }
