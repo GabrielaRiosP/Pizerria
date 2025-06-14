@@ -1,15 +1,18 @@
-import '../css/Cardpizza.css'
-import PropTypes from 'prop-types';
 
-const Cardpizza = ({img, name, price, ingredients}) => (
+import '../css/Cardpizza.css'
+import PropTypes from 'prop-types'
+
+const Cardpizza = (props) => (
     
-    <div className='containerCard'>
+    <div className='containerCard col-4'>
         <div className='card'>
-            <img src={img} alt={name} />
+            <img src={props.pizzas.img} className="card-img-top" alt={props.pizzas.name}/>
             <div className='card-body'>
-                <h3>{name}</h3>
-                <p>{ingredients}</p>
-                <h5>Precio: ${price}</h5>
+                <h3 className='card-title'>{props.pizzas.name}</h3>
+                <ul> <p>Ingredientes</p>
+                    {props.pizzas.ingredients.map((ingredients, index) => <li key={index}>🍕{ingredients}</li>)}
+                </ul>
+                <h5>Precio: ${props.pizzas.price}</h5>
                 <div className='button-container'>
                     <button type="button" className="btn btn-dark">Ver más </button>
                     <button type="button" className="btn btn-dark">🛒Agregar</button>
@@ -24,13 +27,12 @@ const Cardpizza = ({img, name, price, ingredients}) => (
     );
     
 Cardpizza.propTypes = {
-  img: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  ingredients: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-  ]).isRequired,
+  pizzas: PropTypes.shape({
+    img: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default Cardpizza 
