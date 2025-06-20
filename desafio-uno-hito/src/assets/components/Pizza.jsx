@@ -30,7 +30,7 @@ const Pizza = () => {
               ))}
             </ul>
             <p><strong>ID:</strong> {pizza.id}</p>
-            <h5><strong>Precio:</strong> ${pizza.precio}</h5>
+            <h5><strong>Precio:</strong> ${pizza.precio.toLocaleString('es-CL')}</h5>
             <div className="d-flex justify-content-between mt-3">
               <button className="btn btn-outline-primary">Ver más</button>
               <button className="btn btn-dark">🛒 Agregar</button>
