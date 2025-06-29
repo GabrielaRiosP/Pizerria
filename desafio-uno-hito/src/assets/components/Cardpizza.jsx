@@ -3,6 +3,7 @@ import '../css/Cardpizza.css'
 import PropTypes from 'prop-types'
 
 const Cardpizza = ({ pizzas }) => {
+    if (!pizzas || pizzas.length === 0) return <>No hay pizzas aún</>
     console.log("Se reciben las pizzas", pizzas);
 
     return (

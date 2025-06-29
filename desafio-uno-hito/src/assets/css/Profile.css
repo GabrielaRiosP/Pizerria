@@ -1,0 +1,10 @@
+*{
+  height: fit-content;
+}
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 5vh;
+  background-color: #f0f0f0;
+}

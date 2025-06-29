@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-//import { pizzas } from '../../data/pizzas'
+//import { pizzas } from '../../data/pizzas.js'
 import '../css/Home.css'
-import Cardpizza from "./Cardpizza"
-import Header from "./Header"
+import Cardpizza from "../components/Cardpizza"
+import Header from "../components/Header"
 
 
 const Home = () => {

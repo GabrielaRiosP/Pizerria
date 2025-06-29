@@ -1,14 +1,15 @@
 import '../css/Navbar.css';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const total = 25000;
-  const token = false; // Cambia a true para ver el efecto condicional
+  //const token = false; // Cambia a true para ver el efecto condicional
 
   return (
     <div className="menu">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">Pizzería Mamma Mía!</a>
+          <Link to="/" className="navbar-brand">Pizzería Mamma Mía!</Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -21,30 +22,28 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav me-auto">
-              <li className="nav-item">
-                <button type="button" className="btn btn-dark btn-outline-light me-2">🍕Home</button>
-
-                {token ? (
-                  <>
-                    <button type="button" className="btn btn-dark btn-outline-light me-2">🔒Profile</button>
-                    <button type="button" className="btn btn-dark btn-outline-light me-2">🔏Logout</button>
-                  </>
-                ) : (
-                  <>
-                    <button type="button" className="btn btn-dark btn-outline-light me-2">🔏Login</button>
-                    <button type="button" className="btn btn-dark btn-outline-light me-2">🔓Register</button>
-                  </>
-                )}
-              </li>
-            </ul>
+      <div className="collapse navbar-collapse" id="navbarNav">
+        <div className="justify-content-start">
+        <Link to="/" className="text-white me-3 text-decoration-none">
+        Home
+        </Link>
+        <Link to="/register" className="text-white me-3 text-decoration-none">
+        Register</Link>
+        <Link to="/login" className="text-white me-3 text-decoration-none">
+        Login</Link>
+        <Link to="/cart" className="text-white me-3 text-decoration-none">
+        Carta</Link>
+        {/*<Link to="/pizza/p001" className="text-white ms-3 text-decoration-none">
+        Pizza</Link>
+        <Link to="/profile" className="text-white ms-3 text-decoration-none">
+        Profile</Link>*/}
+        <Link to="/404" className="text-white ms-3 text-decoration-none">
+        NotFound</Link>
+      </div>
 
             <ul className="navbar-nav">
               <li className="nav-item-total">
-                <button type="button" className="btn btn-dark btn-outline-light">
-                  🛒 Total: ${total.toLocaleString('es-CL')}
-                </button>
+                <Link to="/cart" className='btn btn-dark btn-outline-light'>🛒 Total: ${total.toLocaleString('es-CL')}</Link>
               </li>
             </ul>
           </div>
