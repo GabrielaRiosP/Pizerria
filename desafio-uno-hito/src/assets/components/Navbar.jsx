@@ -1,9 +1,11 @@
 import '../css/Navbar.css';
 import { Link } from 'react-router-dom';
+import { useCart } from '../../context/CartContext';
 
 const Navbar = () => {
-  const total = 25000;
-  //const token = false; // Cambia a true para ver el efecto condicional
+  const { cart} = useCart();
+
+  const total = cart.reduce((sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 0), 0);
 
   return (
     <div className="menu">

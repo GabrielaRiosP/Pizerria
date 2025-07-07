@@ -1,34 +1,17 @@
-import { pizzaCart } from "../../data/pizzas.js";
-import { useState } from "react";
+//import { pizzaCart } from "../../data/pizzas.js";
+//import { useState } from "react";
+import { useCart } from "../../context/CartContext";
 import "../css/Cart.css";
 
 const Cart = () => {
-  const [cart, setCart] = useState(pizzaCart);
+  const {cart, addToCart, removeFromCart, } = useCart();
 
-  const aumentarCantidad = (id) => {
-    const actualizado = cart.map((pizza) =>
-      pizza.id === id ? { ...pizza, count: pizza.count + 1 } : pizza
-    );
-    setCart(actualizado);
-  };
-
-  const disminuirCantidad = (id) => {
-    const actualizado = cart
-      .map((pizza) =>
-        pizza.id === id ? { ...pizza, count: pizza.count - 1 } : pizza
-      )
-      .filter((pizza) => pizza.count > 0); // eliminar si llega a 0
-    setCart(actualizado);
-  };
-
-  const total = cart.reduce(
-    (acum, pizza) => acum + pizza.price * pizza.count,
-    0
+  const total = cart.reduce (
+    (acum, pizza)=> acum + (pizza.price ?? 0) * (pizza.quantity ?? 0) , 0
   );
 
   const pagar = () => {
     alert("Gracias por tu compra 😄");
-    setCart([]);
   };
 
   return (
@@ -45,19 +28,19 @@ const Cart = () => {
               {pizza.name.charAt(0).toUpperCase() + pizza.name.slice(1)}
             </div>
 
-            <div className="item-price">${pizza.price.toLocaleString()}</div>
+            <div className="item-price">${pizza.price.toLocaleString('es-CL')}</div>
 
             <div className="counter">
               <button
                 className="decrease btn btn-outline-danger"
-                onClick={() => disminuirCantidad(pizza.id)}
+                onClick={() => removeFromCart(pizza.id)}
               >
                 −
               </button>
-              <span> {pizza.count} </span>
+              <span> {pizza.quantity} </span>
               <button
                 className="increase btn btn-outline-primary"
-                onClick={() => aumentarCantidad(pizza.id)}
+                onClick={() => addToCart(pizza)}
               >
                 +
               </button>
@@ -69,7 +52,7 @@ const Cart = () => {
       {cart.length > 0 && (
         <>
           <div className="total-section">
-            Total: <span>${total.toLocaleString()}</span>
+            Total: <span>${total.toLocaleString('es-CL')}</span>
           </div>
           <button className="btn-pay btn-sm" onClick={pagar}>
             Pagar
@@ -81,3 +64,31 @@ const Cart = () => {
 };
 
 export default Cart;
+
+
+
+
+  {/*const aumentarCantidad = (id) => {
+    const actualizado = cart.map((pizza) =>
+      pizza.id === id ? { ...pizza, count: pizza.count + 1 } : pizza
+    );
+    setCart(actualizado);
+  }; 
+
+  const disminuirCantidad = (id) => {
+    const actualizado = cart
+      .map((pizza) =>
+        pizza.id === id ? { ...pizza, count: pizza.count - 1 } : pizza
+      )
+      .filter((pizza) => pizza.count > 0); // eliminar si llega a 0
+    setCart(actualizado);
+  };
+
+  const total = cart.reduce(
+    (acum, pizza) => acum + pizza.price * pizza.count,
+    0
+  ); */}
+
+  
+
+ 
