@@ -1,6 +1,7 @@
 
 import '../css/Cardpizza.css';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 
 const Cardpizza = ({ pizzas }) => {
@@ -10,19 +11,23 @@ const Cardpizza = ({ pizzas }) => {
 
     return (
         <div className='row'>
-            {pizzas.map((pizza, index)=> (
-                <div className='card col-4' key={index}>
+            {pizzas.map((pizza)=> (
+                <div className='card col-4' key={pizza.id}>
                     <img src={pizza.img} className="card-img-top" alt={pizza.name}/>
                     <div className='card-body'>
                 <h3 className='card-title'>{pizza.name}</h3>
                 <ul> <li><strong>Ingredientes</strong></li>
-                    {pizza.ingredients.map((ingredient, ) => ( <li key={ingredient}>🍕{ingredient}</li>))}
+                    {pizza.ingredients.map((ingredient, index) => ( <li key={index}>🍕{ingredient}</li>))}
                 </ul>
-                <h5>Precio: ${pizza.price}</h5>
-                <div className='button-container'>
-                    <button type="button" className="btn btn-dark">Ver más </button>
+                <h5>Precio: ${pizza.price?.toLocaleString("es-CL")}</h5>
+                <div className='d-flex justify-content-between mt-3'>
+                    <Link to={'/pizza/${pizza.id}'} className='btn btn-outline-dark'>
+                    Ver mas
+                    </Link>
                     <button type="button" className="btn btn-dark" onClick={() => addToCart(pizza)}>🛒Agregar</button>
+
                 </div>
+                
             </div>
         </div>
             )) }

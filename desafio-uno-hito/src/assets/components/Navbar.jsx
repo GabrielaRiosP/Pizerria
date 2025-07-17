@@ -1,9 +1,12 @@
 import '../css/Navbar.css';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
 
 const Navbar = () => {
   const { cart} = useCart();
+  const { token, logout } = useContext(UserContext);
 
   const total = cart.reduce((sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 0), 0);
 
@@ -29,16 +32,27 @@ const Navbar = () => {
         <Link to="/" className="text-white me-3 text-decoration-none">
         Home
         </Link>
-        <Link to="/register" className="text-white me-3 text-decoration-none">
+
+        {!token ? (
+          <>
+          <Link to="/register" className="text-white me-3 text-decoration-none">
         Register</Link>
         <Link to="/login" className="text-white me-3 text-decoration-none">
         Login</Link>
+          </>
+        ) : (
+          <>
+          <Link to="/profile" className="text-white ms-3 text-decoration-none">
+        Profile</Link>
+        <button onClick={logout} className='btn btn-outline-light ms-3'>
+          Logout
+        </button>
+          </>
+        )}
         <Link to="/cart" className="text-white me-3 text-decoration-none">
         Carta</Link>
         {/*<Link to="/pizza/p001" className="text-white ms-3 text-decoration-none">
-        Pizza</Link>
-        <Link to="/profile" className="text-white ms-3 text-decoration-none">
-        Profile</Link>*/}
+        Pizza</Link>*/}
         <Link to="/404" className="text-white ms-3 text-decoration-none">
         NotFound</Link>
       </div>
