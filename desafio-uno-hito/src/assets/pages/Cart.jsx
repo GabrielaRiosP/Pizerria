@@ -1,21 +1,42 @@
 //import { pizzaCart } from "../../data/pizzas.js";
 //import { useState } from "react";
 import { useCart } from "../../context/CartContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import "../css/Cart.css";
 
 
 const Cart = () => {
-  const {cart, addToCart, removeFromCart, } = useCart();
+  const {cart, addToCart, removeFromCart, clearCart } = useCart();
   const { token } = useContext(UserContext);
+  const [successMessage, SetSuccessMessage] = useState(""); 
 
   const total = cart.reduce (
     (acum, pizza)=> acum + (pizza.price ?? 0) * (pizza.quantity ?? 0) , 0
   );
 
-  const pagar = () => {
-    alert("Gracias por tu compra 😄");
+  const pagar = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/checkouts", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ items: cart}),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al procesar el pago");
+      }
+
+      const data = await response.json();
+      console.log("Respuesta del servidor", data)
+      SetSuccessMessage("✅Compra realizada con éxito");
+      clearCart();
+    } catch(error) {
+      console.error("Error en checkout:", error);
+      alert("❌ No se pudo completar la compra, intenta nuevamente.");
+    }
   };
 
   return (
@@ -68,6 +89,9 @@ const Cart = () => {
             </p>
           )}
         </>
+      )}
+      {successMessage && (
+        <p className="text-success mt-3">{successMessage}</p>
       )}
     </div>
   );

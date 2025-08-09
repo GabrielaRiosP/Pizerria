@@ -1,6 +1,6 @@
 import { useContext} from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { UserContext} from './context/userContext';
+import { UserContext} from './context/UserContext';
 import './App.css';
 import Navbar from './assets/components/Navbar';
 import Home from './assets/pages/Home';
@@ -13,8 +13,8 @@ import Profile from './assets/components/Profile';
 //import Pizza from './assets/pages/Pizza';
 
 const App = () => {
-  const { user } = useContext(UserContext);
-  const token = !!user?.token;
+  /*const { user } = useContext(UserContext);*/
+  const { token } = useContext(UserContext);
 
   return (
     <>
